@@ -90,7 +90,7 @@ if __name__ == "__main__":
     zhihu_question = zhihu_client.question(394344003)
     epub_name = zhihu_question.title
     ic(epub_name)
-    book = Book(title=epub_name)
+    epub_book = Book(title=epub_name)
     count = 0
     now = time.time()
     run_time = 300
@@ -99,14 +99,14 @@ if __name__ == "__main__":
         # ic(name)
         count += 1
         answer_content = answer.content
-        add_character(book, answer_content, author_name, count)
+        epub_book, count = add_character(epub_book, answer_content, author_name, count)
         if time.time() - now > run_time:
             # page_html = driver.page_source
             break
         # book.add_page(title=author_name,content=)
         # print(content)
     try:
-        book.save(epub_name + ".epub")
+        epub_book.save(epub_name + ".epub")
     except FileExistsError:
         os.remove(epub_name + ".epub")
-        book.save(epub_name + ".epub")
+        epub_book.save(epub_name + ".epub")
